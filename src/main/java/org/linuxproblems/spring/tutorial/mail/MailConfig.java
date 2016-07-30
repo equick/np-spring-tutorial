@@ -10,6 +10,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 @Configuration
 public class MailConfig {
 	
+	@Bean
+	public DemoBean demoBean() {
+		return new DemoBean();
+	}
 	
 	@Bean
 	@ConditionalOnProperty(name="spring.mail.host",
@@ -23,6 +27,7 @@ public class MailConfig {
 	@Bean
 	@ConditionalOnProperty("spring.mail.host")
 	public MailSender smtpMailSender(JavaMailSender javaMailSender) {
+		demoBean().foo();
 		SmtpMailSender mailSender = new SmtpMailSender();
 		mailSender.setJavaMailSender(javaMailSender);
 		return mailSender;
